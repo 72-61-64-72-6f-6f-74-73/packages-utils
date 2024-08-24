@@ -1,0 +1,18 @@
+{
+    "name": "@radroots/utils",
+    "version": "0.0.0",
+    "private": true,
+    "license": "GPLv3",
+    "type": "module",
+    "module": "index.ts",
+    "scripts": {
+        "build": "just build && tsc",
+        "dev": "tsc -w"
+    },
+    "devDependencies": {
+        "typescript": "^5.3.3"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
