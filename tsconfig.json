@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
         "lib": [
-            "es2021"
+            "es2021",
+            "dom"
         ],
         "module": "CommonJS",
         "outDir": "./dist",
         "rootDir": "./src",
-        "noEmit": true
+        "noEmit": true,
     },
     "include": [
         "src"
