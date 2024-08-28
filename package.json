@@ -10,6 +10,7 @@
         "dev": "tsc -w"
     },
     "devDependencies": {
+        "@types/ngeohash": "0.6.8",
         "@types/uuid": "^10.0.0",
         "typescript": "^5.3.3"
     },
@@ -19,6 +20,7 @@
     "dependencies": {
         "@noble/hashes": "^1.4.0",
         "jshashes": "^1.0.8",
+        "ngeohash": "0.6.3",
         "nostr-tools": "^2.7.2",
         "uuid": "^10.0.0"
     }
