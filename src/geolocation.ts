@@ -1,5 +1,5 @@
 import ngeohash from "ngeohash";
-import { LocationPoint } from "./types";
+import type { LocationPoint } from "./types";
 
 export const geohash_encode = (opts: {
     lat: string | number;
