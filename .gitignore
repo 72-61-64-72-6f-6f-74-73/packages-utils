@@ -32,3 +32,4 @@ _tmp
 notes*.txt
 justfile
 dist
+git-diff.txt

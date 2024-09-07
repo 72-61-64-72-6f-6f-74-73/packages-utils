@@ -10,3 +10,5 @@ export type LocationPoint = {
         lng: number;
     };
 }
+
+export type NumberTuple = [number, number];
