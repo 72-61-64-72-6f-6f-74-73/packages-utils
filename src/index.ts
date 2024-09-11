@@ -1,5 +1,6 @@
 
 import "./global.d.ts";
+export * from "./currency"
 export * from "./error"
 export * from "./geolocation"
 export * from "./jshashes"

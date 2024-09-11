@@ -12,32 +12,41 @@ export function parse_trade_key(val?: string): TradeKey | undefined {
             return undefined;
     };
 };
-
 export type TradeMassUnit = "kg" | "lb" | "g";
 
+export function parse_trade_mass_unit(val?: string): TradeMassUnit | undefined {
+    switch (val) {
+        case "kg":
+        case "lb":
+        case "g":
+            return val;
+        default:
+            return undefined;
+    };
+};
 export type TradeKeyQuantity = {
-    label?: string;
-    qty_amt: number;
-    qty_unit: TradeMassUnit;
+    label: string;
+    mass: number;
+    mass_unit: TradeMassUnit;
 };
 
-export const fmt_trade_quantity_val = (obj: TradeKeyQuantity): string => `${obj.qty_amt}-${obj.qty_unit}`;
+export const fmt_trade_quantity_val = (obj: TradeKeyQuantity): string => `${obj.mass}-${obj.mass_unit}-${obj.label}`;
 
 const trade_quantities_default: TradeKeyQuantity[] = [
     {
         label: `bag`,
-        qty_amt: 10,
-        qty_unit: `kg`
+        mass: 10,
+        mass_unit: `kg`
     },
     {
         label: `bag`,
-        qty_amt: 5,
-        qty_unit: `kg`
+        mass: 5,
+        mass_unit: `kg`
     },
     {
         label: `bag`,
-        qty_amt: 25,
-        qty_unit: `kg`
+        mass: 25,
+        mass_unit: `kg`
     },
 ];
 
@@ -45,23 +54,18 @@ export const trade_quantities: Record<TradeKey, TradeKeyQuantity[]> = {
     coffee: [
         {
             label: `bag`,
-            qty_amt: 60,
-            qty_unit: `kg`
+            mass: 60,
+            mass_unit: `kg`
         },
         {
             label: `bag`,
-            qty_amt: 69,
-            qty_unit: `kg`
+            mass: 69,
+            mass_unit: `kg`
         },
         {
             label: `bag`,
-            qty_amt: 30,
-            qty_unit: `kg`
-        },
-        {
-            label: `bag`,
-            qty_amt: 15,
-            qty_unit: `kg`
+            mass: 30,
+            mass_unit: `kg`
         },
     ],
     cacao: [
@@ -70,14 +74,35 @@ export const trade_quantities: Record<TradeKey, TradeKeyQuantity[]> = {
     maca: [
         {
             label: `bag`,
-            qty_amt: 1,
-            qty_unit: `kg`
+            mass: 1,
+            mass_unit: `kg`
         },
         {
             label: `bag`,
-            qty_amt: 100,
-            qty_unit: `g`
+            mass: 100,
+            mass_unit: `g`
         },
         ...trade_quantities_default
     ]
+}
+
+export function parse_trade_mass_tuple(val?: string): [number, TradeMassUnit, string] | undefined {
+    if (!val) return;
+    const vals = val.split('-');
+
+    if (vals.length !== 3) return;
+
+    const mass = vals[0];
+    const mass_unit = vals[1];
+    const label = vals[2];
+
+    const amt = parseInt(mass, 10);
+    if (isNaN(amt) || amt <= 0) return;
+
+    const units = parse_trade_mass_unit(mass_unit);
+    if (!units) return;
+
+    if (typeof label !== `string` || !label) return;
+
+    return [amt, units, label]
 }
