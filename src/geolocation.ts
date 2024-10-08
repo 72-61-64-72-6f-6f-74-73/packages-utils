@@ -1,7 +1,7 @@
-import ngeohash from "ngeohash";
+import * as ngeohash from "ngeohash";
 import type { LocationPoint } from "./types";
 
-export type GeolocationCoordinates = {
+export type GeolocationCoordinatesPoint = {
     lat: number;
     lng: number;
 }
@@ -28,7 +28,8 @@ export const geohash_decode = (opts: {
     };
 };
 
-export const location_geohash = (lat: number, lng: number): string => {
+export const location_geohash = (point: GeolocationCoordinatesPoint): string => {
+    const { lat, lng } = point;
     const res = geohash_encode({ lat, lng });
     return res;
 };
