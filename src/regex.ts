@@ -6,6 +6,6 @@ export const regex: Record<string, RegExp> = {
     alphanum_ch: /[a-zA-Z0-9., ]/,
     price: /^\d+(\.\d+)?$/,
     price_ch: /[0-9.]$/,
-    profile_name: /^[a-zA-Z0-9._]{1,30}$/,
+    profile_name: /^[a-zA-Z0-9._]{3,30}$/,
     profile_name_ch: /[a-zA-Z0-9._]/,
 };

@@ -15,7 +15,7 @@ export const wind: ClientWindow = {
                 h: 600
             },
             mobile_y: {
-                h: 768
+                h: 750
             }
         }
     }

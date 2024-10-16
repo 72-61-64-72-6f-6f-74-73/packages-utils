@@ -50,10 +50,8 @@ export const parse_currency_price = (locale: string, _currency: string, amount: 
     return {
         symbol: symbol_val_i.charAt(0),
         currency,
-        val_i: Number(symbol_val_i.slice(1)),
+        val_i: Number(symbol_val_i.replaceAll(`,`, ``).slice(1)),
         val_f: Number(val_f),
     }
-    //
-    //return [a.charAt(0), a.slice(1), b.length > 1 ? b : '00'];
 };
 
