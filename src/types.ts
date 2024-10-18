@@ -6,6 +6,7 @@ export type ErrorMessage<T extends string> = { err: T };
 export type ResultId = { id: string; };
 export type ResultPass = { pass: true; };
 export type ResultsList<T> = { results: T[]; };
+export type ResultObj<T> = { result: T; };
 
 export type LocationPoint = GeolocationCoordinatesPoint & {
     lat: number;
