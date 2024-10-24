@@ -16,6 +16,8 @@ export type CurrencyPrice = {
     val_f: number;
 };
 
+export type CurrencyPriceFmt = [string, FiatCurrency, number, number]
+
 export function parse_currency(val?: string): FiatCurrency {
     const _val = val?.trim().toLowerCase()
     switch (_val) {
@@ -52,6 +54,29 @@ export const parse_currency_price = (locale: string, _currency: string, amount: 
         currency,
         val_i: Number(symbol_val_i.replaceAll(`,`, ``).slice(1)),
         val_f: Number(val_f),
-    }
+    };
 };
+
+export const parse_currency_price_fmt = (locale: string, _currency: string, amount: number): CurrencyPriceFmt => {
+    const currency = parse_currency(_currency);
+    const fmt = new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency.toUpperCase(),
+        minimumFractionDigits: 2,
+    });
+    const fmt_amt = fmt.format(amount);
+    const [symbol_val_i, val_f] = fmt_amt.split('.');
+    return [symbol_val_i.charAt(0), currency, Number(symbol_val_i.replaceAll(`,`, ``).slice(1)), Number(val_f)];
+};
+
+export const price_fmt = (locale: string, _currency: string): Intl.NumberFormat => {
+    const currency = parse_currency(_currency);
+    const fmt = new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency.toUpperCase(),
+        minimumFractionDigits: 2,
+    });
+    return fmt;
+};
+
 
