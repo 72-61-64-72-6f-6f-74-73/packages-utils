@@ -8,7 +8,7 @@ export type ResultPass = { pass: true; };
 export type ResultsList<T> = { results: T[]; };
 export type ResultObj<T> = { result: T; };
 
-export type FieldRecord = Record<string,string>;
+export type FieldRecord = Record<string, string>;
 
 export type LocationPoint = GeolocationCoordinatesPoint & {
     lat: number;
