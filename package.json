@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@nostr-dev-kit/ndk": "^2.10.0",
+        "convert": "^5.5.1",
         "jshashes": "^1.0.8",
         "ngeohash": "0.6.3",
         "uuid": "^10.0.0"

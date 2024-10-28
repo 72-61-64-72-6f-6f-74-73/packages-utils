@@ -1,38 +1,16 @@
+import { type MassUnit, parse_trade_mass_unit } from "./units";
+
 export type TradeKey = `coffee` | `cacao` | `maca`;
+
+export type TradeQuantity = {
+    label: string;
+    mass: number;
+    mass_unit: MassUnit;
+};
 
 export const trade_keys: TradeKey[] = [`coffee`, `cacao`, `maca`] as const;
 
-export function parse_trade_key(val?: string): TradeKey | undefined {
-    switch (val) {
-        case "coffee":
-        case "cacao":
-        case "maca":
-            return val;
-        default:
-            return undefined;
-    };
-};
-export type TradeMassUnit = "kg" | "lb" | "g";
-
-export function parse_trade_mass_unit(val?: string): TradeMassUnit | undefined {
-    switch (val) {
-        case "kg":
-        case "lb":
-        case "g":
-            return val;
-        default:
-            return undefined;
-    };
-};
-export type TradeKeyQuantity = {
-    label: string;
-    mass: number;
-    mass_unit: TradeMassUnit;
-};
-
-export const fmt_trade_quantity_val = (obj: TradeKeyQuantity): string => `${obj.mass}-${obj.mass_unit}-${obj.label}`;
-
-const trade_quantities_default: TradeKeyQuantity[] = [
+const trade_quantity_default: TradeQuantity[] = [
     {
         label: `bag`,
         mass: 10,
@@ -50,43 +28,103 @@ const trade_quantities_default: TradeKeyQuantity[] = [
     },
 ];
 
-export const trade_quantities: Record<TradeKey, TradeKeyQuantity[]> = {
-    coffee: [
-        {
-            label: `bag`,
-            mass: 60,
-            mass_unit: `kg`
+export type TradeParam = {
+    default: {
+        quantity: TradeQuantity[];
+    },
+    key: Record<TradeKey, {
+        quantity: TradeQuantity[];
+        process: string[];
+    }>;
+};
+export const trade: TradeParam = {
+    default: {
+        quantity: trade_quantity_default,
+    },
+    key: {
+        coffee: {
+            quantity: [
+                {
+                    label: `bag`,
+                    mass: 60,
+                    mass_unit: `kg`
+                },
+                {
+                    label: `bag`,
+                    mass: 69,
+                    mass_unit: `kg`
+                },
+                {
+                    label: `bag`,
+                    mass: 30,
+                    mass_unit: `kg`
+                },
+            ],
+            process: [
+                `washed`,
+                `natural`,
+                `honey`,
+                `semi_washed`,
+                `wet_hulled`,
+                `dry`,
+                `pulped_natural`,
+                `carbonic_maceration`
+            ]
         },
-        {
-            label: `bag`,
-            mass: 69,
-            mass_unit: `kg`
+        cacao: {
+            quantity: [
+                ...trade_quantity_default
+            ],
+            process: [
+                `raw`,
+                `fermented`,
+                `dried`,
+                `roasted`,
+                `cocoa_powder`,
+                `cocoa_butter`,
+                `chocolate`
+            ]
         },
-        {
-            label: `bag`,
-            mass: 30,
-            mass_unit: `kg`
-        },
-    ],
-    cacao: [
-        ...trade_quantities_default
-    ],
-    maca: [
-        {
-            label: `bag`,
-            mass: 1,
-            mass_unit: `kg`
-        },
-        {
-            label: `bag`,
-            mass: 100,
-            mass_unit: `g`
-        },
-        ...trade_quantities_default
-    ]
-}
+        maca: {
+            quantity: [
+                {
+                    label: `bag`,
+                    mass: 1,
+                    mass_unit: `kg`
+                },
+                {
+                    label: `bag`,
+                    mass: 100,
+                    mass_unit: `g`
+                },
+                ...trade_quantity_default
+            ],
+            process: [
+                `raw`,
+                `powdered`,
+                `roasted`,
+                `gelatinized`,
+                `capsules`
+            ]
+        }
+    }
+};
 
-export function parse_trade_mass_tuple(val?: string): [number, TradeMassUnit, string] | undefined {
+export const fmt_trade_quantity_sel_val = (obj: TradeQuantity): string => `${obj.mass}-${obj.mass_unit}`;
+
+export function parse_trade_key(val?: string): TradeKey | undefined {
+    switch (val) {
+        case "coffee":
+        case "cacao":
+        case "maca":
+            return val;
+        default:
+            return undefined;
+    };
+};
+
+
+export function parse_trade_mass_tuple(val?: string): [number, MassUnit, string] | undefined {
     if (!val) return;
     const vals = val.split('-');
     if (vals.length !== 3) return;
