@@ -1,8 +1,10 @@
 
 export * from "./currency"
 export * from "./error"
+export * from "./file"
 export * from "./geolocation"
-export * from "./jshashes"
+export * from "./hash"
+export * from "./list"
 export * from "./math"
 export * from "./nostr/lib"
 export * from "./nostr/ndk"
@@ -14,4 +16,3 @@ export * from "./types"
 export * from "./units"
 export * from "./uuid"
 export * from "./window"
-

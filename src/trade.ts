@@ -1,12 +1,27 @@
-import { type MassUnit, parse_trade_mass_unit } from "./units";
+import { type MassUnit, parse_mass_unit } from "./units";
 
 export type TradeKey = `coffee` | `cacao` | `maca`;
 
-export type TradeQuantity = {
-    label: string;
+export type TradeQuantityMass = {
     mass: number;
     mass_unit: MassUnit;
+}
+export type TradeQuantity = TradeQuantityMass & {
+    label: string;
 };
+
+export const fmt_trade_quantity_tup = (obj: TradeQuantity): string => `${obj.mass}-${obj.mass_unit}-${obj.label}`;
+
+export const parse_trade_quantity_tup = (sel_key: string): TradeQuantity | undefined => {
+    const [qty_mass, qty_mass_u, qty_label] = sel_key.split(`-`);
+    if (!qty_mass || !qty_mass_u || !qty_label) return undefined;
+    return {
+        mass: parseInt(qty_mass),
+        mass_unit: parse_mass_unit(qty_mass_u), //@todo
+        label: qty_label
+    }
+};
+
 
 export const trade_keys: TradeKey[] = [`coffee`, `cacao`, `maca`] as const;
 
@@ -35,6 +50,7 @@ export type TradeParam = {
     key: Record<TradeKey, {
         quantity: TradeQuantity[];
         process: string[];
+        flavor: string[];
     }>;
 };
 export const trade: TradeParam = {
@@ -69,7 +85,67 @@ export const trade: TradeParam = {
                 `dry`,
                 `pulped_natural`,
                 `carbonic_maceration`
-            ]
+            ],
+            flavor: [
+                `natural`,
+                `bergamot`,
+                `jasmine honeysuckle`,
+                `orange`,
+                `blueberry`,
+                `apricot`,
+                `black tea`,
+                `raspberry`,
+                `nougat`,
+                `milk chocolate`,
+                `peach`,
+                `vanilla`,
+                `berry`,
+                `nut`,
+                `brown sugar`,
+                `grape`,
+                `raisin`,
+                `red apple`,
+                `sweet bread pastry`,
+                `pineapple`,
+                `star fruit`,
+                `mango`,
+                `grapefruit`,
+                `nectarine`,
+                `red grape`,
+                `maple syrup`,
+                `dark chocolate`,
+                `orange blossom`,
+                `marshmallow`,
+                `mandarin`,
+                `dried dates`,
+                `prune`,
+                `green apple`,
+                `licorice/anise`,
+                `cranberry`,
+                `caramel`,
+                `chocolate`,
+                `lemon`,
+                `golden raisin`,
+                `black cherry`,
+                `plum`,
+                `black currant`,
+                `roses`,
+                `cola`,
+                `banana`,
+                `red currant`,
+                `white grape`,
+                `green tea`,
+                `lychee`,
+                `tamarind`,
+                `dried fig`,
+                `green grape`,
+                `sugar cane`,
+                `cherry`,
+                `magnolia`,
+                `tropical fruit`,
+                `ctrius`,
+                `stronefruit`
+            ],
         },
         cacao: {
             quantity: [
@@ -83,7 +159,8 @@ export const trade: TradeParam = {
                 `cocoa_powder`,
                 `cocoa_butter`,
                 `chocolate`
-            ]
+            ],
+            flavor: []
         },
         maca: {
             quantity: [
@@ -105,12 +182,11 @@ export const trade: TradeParam = {
                 `roasted`,
                 `gelatinized`,
                 `capsules`
-            ]
+            ],
+            flavor: []
         }
     }
 };
-
-export const fmt_trade_quantity_sel_val = (obj: TradeQuantity): string => `${obj.mass}-${obj.mass_unit}`;
 
 export function parse_trade_key(val?: string): TradeKey | undefined {
     switch (val) {
@@ -133,7 +209,7 @@ export function parse_trade_mass_tuple(val?: string): [number, MassUnit, string]
     const label = vals[2];
     const amt = parseInt(mass, 10);
     if (isNaN(amt) || amt <= 0) return;
-    const units = parse_trade_mass_unit(mass_unit);
+    const units = parse_mass_unit(mass_unit);
     if (!units) return;
     if (typeof label !== `string` || !label) return;
     return [amt, units, label]

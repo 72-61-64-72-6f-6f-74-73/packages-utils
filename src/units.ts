@@ -1,12 +1,32 @@
 import convert from "convert";
+import { z } from "zod";
 
-export type MassUnit = "kg" | "lb" | "g";
+export const MassUnitSchema = z.union([
+    z.literal(`kg`),
+    z.literal(`lb`),
+    z.literal(`g`),
+]);
 
-export function parse_trade_mass_unit(val?: string): MassUnit | undefined {
+export const mass_units: MassUnit[] = [`kg`, `lb`, `g`] as const;
+
+export type MassUnit = z.infer<typeof MassUnitSchema>;
+
+export function parse_mass_unit(val: string): MassUnit {
     switch (val) {
-        case "kg":
-        case "lb":
-        case "g":
+        case `kg`:
+        case `lb`:
+        case `g`:
+            return val;
+        default:
+            return `kg`;
+    };
+};
+
+export function parse_mass_unit_u(val?: string): MassUnit | undefined {
+    switch (val) {
+        case `kg`:
+        case `lb`:
+        case `g`:
             return val;
         default:
             return undefined;

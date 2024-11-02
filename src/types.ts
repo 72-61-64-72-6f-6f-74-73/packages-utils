@@ -17,3 +17,4 @@ export type LocationPoint = GeolocationCoordinatesPoint & {
 }
 
 export type NumberTuple = [number, number];
+export type FileBytesFormat = `kb` | `mb` | `gb`;
