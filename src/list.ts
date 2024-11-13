@@ -14,3 +14,9 @@ export const list_move_index = <T>(array: T[], index_start: number, index_end: n
         ...newArray.slice(adjustedIndexEnd)
     ];
 };
+
+export const list_assign = (list_curr: string[], list_new: string[]): string[] => {
+    return Array.from(
+        new Set([...list_curr, ...list_new]),
+    ).filter((i) => !!i);
+};

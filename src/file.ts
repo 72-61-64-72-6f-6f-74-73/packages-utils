@@ -1,4 +1,4 @@
-import type { FileBytesFormat } from "./types";
+import type { FileBytesFormat, FilePath } from "./types";
 
 export const parse_file_name = (file_path: string): string => {
     const file_path_dirs = file_path.split(`/`);
@@ -22,4 +22,15 @@ export const format_file_bytes = (num_bytes: number, format: FileBytesFormat): s
     }
     const result = num_bytes / factor;
     return `${result.toFixed(2)} ${format.toUpperCase()}`;
+};
+
+export const parse_file_path = (file_path: string): FilePath | undefined => {
+    const file_path_spl = file_path.split(`/`);
+    const file_path_file = file_path_spl[file_path_spl.length - 1];
+    const [file_name, mime_type] = file_path_file.split(`.`);
+    if (!file_name || !mime_type) return undefined;
+    return {
+        file_name,
+        mime_type
+    };
 };

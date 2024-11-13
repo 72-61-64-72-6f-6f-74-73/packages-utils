@@ -17,4 +17,7 @@ export type LocationPoint = GeolocationCoordinatesPoint & {
 }
 
 export type NumberTuple = [number, number];
+
 export type FileBytesFormat = `kb` | `mb` | `gb`;
+export type FileMimeType = string;
+export type FilePath = { file_name: string; mime_type: FileMimeType; } 

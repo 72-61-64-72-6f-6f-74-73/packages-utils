@@ -40,3 +40,16 @@ export const mass_g = (units: MassUnit, amt: number): number => {
 export const mass_tf = (units_from: MassUnit, units_to: MassUnit, amt: number): number => {
     return convert(amt, units_from).to(units_to);
 };
+
+export const mass_tf_u = (units_from: MassUnit, units_to: string, amt: number): number => {
+    const _units_to = parse_mass_unit_u(units_to);
+    if (!_units_to) throw new Error(`Malformed units.`)
+    return convert(amt, units_from).to(_units_to);
+};
+
+export const mass_tf_str = (units_from: string, units_to: string, amt: number): number => {
+    const _units_from = parse_mass_unit_u(units_from);
+    const _units_to = parse_mass_unit_u(units_to);
+    if (!_units_from || !_units_to) throw new Error(`Malformed units.`)
+    return convert(amt, _units_from).to(_units_to);
+};
