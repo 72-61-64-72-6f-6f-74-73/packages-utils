@@ -1,4 +1,6 @@
 export const regex = {
+    description: /^(?:\S+(?:\s+\S+)*)$/,
+    description_ch: /[^a-zA-Z0-9.,!?;:'"(){}[]\s\u0600-\u06FF\u0900-\u097F\u0400-\u04FF\u0500-\u052F\u1F00-\u1FFF\u4E00-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF ]+/,
     nbsp: /[\u00A0]/g,
     nbsp_rp: /[\u00A0]+/g,
     rtlm: /[\u200F]/g,
@@ -10,7 +12,8 @@ export const regex = {
     alpha_ch: /[a-zA-Z ]$/,
     num: /^[0-9]+$/,
     alphanum: /[a-zA-Z0-9., ]$/,
-    alphanum_ch: /[a-zA-Z0-9., ]/,
+    alphanum_ch: /[a-zA-Z0-9.,\s\u0600-\u06FF\u0900-\u097F\u0400-\u04FF\u0500-\u052F\u1F00-\u1FFF\u4E00-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF ]+/,
+    ///[a-zA-Z0-9., ]/,
     price: /^\d+(\.\d+)?$/,
     price_ch: /[0-9.]$/,
     profile_name: /^[a-zA-Z0-9._]{3,30}$/,

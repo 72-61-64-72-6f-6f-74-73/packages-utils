@@ -30,6 +30,7 @@ export const parse_file_path = (file_path: string): FilePath | undefined => {
     const [file_name, mime_type] = file_path_file.split(`.`);
     if (!file_name || !mime_type) return undefined;
     return {
+        file_path,
         file_name,
         mime_type
     };

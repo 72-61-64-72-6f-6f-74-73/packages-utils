@@ -12,3 +12,37 @@ export type NostrRelayInformationDocument = {
 }
 
 export type NostrRelayInformationDocumentFormFields = { [K in keyof NostrRelayInformationDocument]: string; };
+
+export type NostrTagListing = {
+    title: string;
+    summary?: string;
+    process?: string;
+    lot?: string;
+    location?: string;
+    profile?: string;
+    year?: string;
+};
+
+export type NostrTagPrice = {
+    amt: string;
+    currency: string;
+    qty_amt: string;
+    qty_unit: string;
+};
+
+export type NostrTagQuantity = {
+    amt: string;
+    unit: string;
+    label?: string;
+};
+
+export type NostrTagLocation = {
+    city?: string;
+    region?: string;
+    region_code?: string;
+    country?: string;
+    country_code?: string;
+    lat: number;
+    lng: number;
+    geohash: string;
+};

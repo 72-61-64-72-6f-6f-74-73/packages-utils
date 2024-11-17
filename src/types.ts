@@ -1,6 +1,6 @@
 import type { GeolocationCoordinatesPoint } from "./geolocation";
 
-export type ErrorResponse = { error: string; };
+export type ErrorResponse<T extends object> = { error: T; };
 export type ErrorMessage<T extends string> = { err: T };
 
 export type ResultId = { id: string; };
@@ -20,4 +20,4 @@ export type NumberTuple = [number, number];
 
 export type FileBytesFormat = `kb` | `mb` | `gb`;
 export type FileMimeType = string;
-export type FilePath = { file_name: string; mime_type: FileMimeType; } 
+export type FilePath = { file_path: string; file_name: string; mime_type: FileMimeType; }

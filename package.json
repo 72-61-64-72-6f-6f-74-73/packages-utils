@@ -18,10 +18,13 @@
         "access": "public"
     },
     "dependencies": {
+        "@noble/curves": "^1.6.0",
         "@noble/hashes": "^1.4.0",
         "@nostr-dev-kit/ndk": "^2.10.0",
         "convert": "^5.5.1",
         "ngeohash": "0.6.3",
+        "nostr-geotags": "^0.7.1",
+        "nostr-tools": "^2.7.2",
         "uuid": "^10.0.0",
         "zod": "^3.23.8"
     }
