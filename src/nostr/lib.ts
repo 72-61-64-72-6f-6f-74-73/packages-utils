@@ -1,9 +1,9 @@
 import { schnorr } from '@noble/curves/secp256k1';
 import { hexToBytes } from '@noble/hashes/utils';
-import { type EventTemplate, finalizeEvent, getEventHash, type NostrEvent } from "nostr-tools";
+import { type EventTemplate, finalizeEvent, getEventHash, nip19, type NostrEvent } from "nostr-tools";
 import { uuidv4 } from '../uuid';
 import { fmt_tag_geotags } from './geotags';
-import type { NostrRelayInformationDocument, NostrRelayInformationDocumentFormFields, NostrTagListing, NostrTagLocation, NostrTagPrice, NostrTagQuantity } from "./types";
+import type { NostrRelayInformationDocument, NostrRelayInformationDocumentFormFields, NostrTagClient, NostrTagListing, NostrTagLocation, NostrTagMediaUpload, NostrTagPrice, NostrTagQuantity } from "./types";
 
 export const parse_nostr_relay_information_document = (data: any): NostrRelayInformationDocument | undefined => {
     const obj = JSON.parse(data);
@@ -63,18 +63,17 @@ export const fmt_tag_location = (opts: NostrTagLocation): string[] => {
     return tag;
 };
 
-type NostrTagMediaUpload = {
-    url: string;
-    size?: {
-        w: number;
-        h: number;
-    };
-};
 export const fmt_tag_image = (opts: NostrTagMediaUpload): string[] => {
     const tag = ["image", opts.url];
     if (opts.size) tag.push(`${opts.size.w}x${opts.size.h}`)
     return tag;
 };
+
+export const fmt_tag_client = (opts: NostrTagClient, d_tag: string): string[] => {
+    const tag = [`client`, opts.name, `31990:${opts.pubkey}:${d_tag}`, opts.relay]
+    return tag;
+};
+
 
 export const fmt_tags_basis_nip99 = async (opts: {
     d_tag: string;
@@ -83,17 +82,19 @@ export const fmt_tags_basis_nip99 = async (opts: {
     price: NostrTagPrice;
     location: NostrTagLocation;
     images?: NostrTagMediaUpload[];
+    client?: NostrTagClient;
 }): Promise<string[][] | undefined> => {
     try {
         const tags: string[][] = [
             [`d`, opts.d_tag],
         ];
+        if (opts.client) tags.push(fmt_tag_client(opts.client, opts.d_tag));
         for (const [k, v] of Object.entries(opts.listing)) if (v) tags.push([k, v]);
         tags.push(fmt_tag_quantity(opts.quantity));
         tags.push(fmt_tag_price(opts.price));
         tags.push(fmt_tag_location(opts.location));
         if (opts.images) for (const image of opts.images) tags.push(fmt_tag_image(image));
-        tags.push(...fmt_tag_geotags(opts.location))
+        tags.push(...fmt_tag_geotags(opts.location));
         return tags;
     } catch (e) {
         console.log(`(error) fmt_tags_nip99 `, e);
@@ -143,4 +144,13 @@ export const nostr_event_verify_serialized = async (event_serialized: string): P
     } catch {
         return false;
     }
+};
+
+export const nevent_encode = (opts: {
+    id: string;
+    relays: string[];
+    author: string;
+    kind: number;
+}): string => {
+    return nip19.neventEncode(opts)
 };

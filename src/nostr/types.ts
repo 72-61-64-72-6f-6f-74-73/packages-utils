@@ -46,3 +46,17 @@ export type NostrTagLocation = {
     lng: number;
     geohash: string;
 };
+
+export type NostrTagMediaUpload = {
+    url: string;
+    size?: {
+        w: number;
+        h: number;
+    };
+};
+
+export type NostrTagClient = {
+    name: string;
+    pubkey: string;
+    relay: string;
+};
