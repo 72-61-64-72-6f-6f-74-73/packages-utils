@@ -1,5 +1,6 @@
 import NDK, { NDKEvent, NDKPrivateKeySigner, NDKUser } from '@nostr-dev-kit/ndk';
 import { time_now_ms } from '../time';
+import type { NostrMetadataTmp } from './types';
 
 export const ndk_init = async (opts: {
     $ndk: NDK;
@@ -18,6 +19,27 @@ export const ndk_init = async (opts: {
     } catch (e) {
         console.log(`(error) ndk_init `, e);
     };
+};
+
+export const ndk_event_metadata = async (opts: {
+    $ndk: NDK;
+    $ndk_user: NDKUser;
+    metadata: NostrMetadataTmp
+}): Promise<NDKEvent | undefined> => {
+    try {
+        const { $ndk, $ndk_user } = opts;
+        const ev = await ndk_event({
+            $ndk,
+            $ndk_user,
+            basis: {
+                kind: 0,
+                content: JSON.stringify(opts.metadata),
+            },
+        });
+        return ev;
+    } catch (e) {
+        console.log(`(error) ndk_event_metadata `, e);
+    }
 };
 
 export const ndk_event = async (opts: {

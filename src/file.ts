@@ -2,8 +2,11 @@ import type { FileBytesFormat, FilePath } from "./types";
 
 export const parse_file_name = (file_path: string): string => {
     const file_path_dirs = file_path.split(`/`);
-    if (file_path_dirs.length > 0) return file_path_dirs[file_path_dirs.length - 1];
-    return ``
+    if (file_path_dirs.length) {
+        const res = file_path_dirs[file_path_dirs.length - 1];
+        if (res) return res;
+    };
+    return ``;
 };
 
 export const format_file_bytes = (num_bytes: number, format: FileBytesFormat): string => {
@@ -26,7 +29,7 @@ export const format_file_bytes = (num_bytes: number, format: FileBytesFormat): s
 
 export const parse_file_path = (file_path: string): FilePath | undefined => {
     const file_path_spl = file_path.split(`/`);
-    const file_path_file = file_path_spl[file_path_spl.length - 1];
+    const file_path_file = file_path_spl[file_path_spl.length - 1] || ``;
     const [file_name, mime_type] = file_path_file.split(`.`);
     if (!file_name || !mime_type) return undefined;
     return {

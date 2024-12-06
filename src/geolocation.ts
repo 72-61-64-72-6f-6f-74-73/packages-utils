@@ -1,4 +1,5 @@
-import * as ngeohash from "ngeohash";
+//import * as ngeohash from "ngeohash";
+import { decodeBase32, encodeBase32 } from "geohashing";
 import type { LocationPoint } from "./types";
 
 export type GeolocationCoordinatesPoint = {
@@ -10,14 +11,14 @@ export const geohash_encode = (opts: {
     lat: string | number;
     lng: string | number;
 }): string => {
-    const geohash = ngeohash.encode(opts.lat, opts.lng);
+    const lat = typeof opts.lat === `string` ? parseFloat(opts.lat) : opts.lat;
+    const lng = typeof opts.lng === `string` ? parseFloat(opts.lng) : opts.lng;
+    const geohash = encodeBase32(lat, lng);
     return geohash;
 };
 
-export const geohash_decode = (opts: {
-    geohash: string;
-}): LocationPoint => {
-    const { latitude: lat, longitude: lng, error: { latitude: lat_err, longitude: lng_err } } = ngeohash.decode(opts.geohash);
+export const geohash_decode = (geohash: string): LocationPoint => {
+    const { lat, lng, error: { lat: lat_err, lng: lng_err } } = decodeBase32(geohash);
     return {
         lat,
         lng,

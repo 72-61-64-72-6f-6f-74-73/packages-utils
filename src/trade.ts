@@ -207,7 +207,7 @@ export function parse_trade_mass_tuple(val?: string): [number, MassUnit, string]
     const mass = vals[0];
     const mass_unit = vals[1];
     const label = vals[2];
-    const amt = parseInt(mass, 10);
+    const amt = parseInt(mass || `0`, 10);
     if (isNaN(amt) || amt <= 0) return;
     const units = parse_mass_unit(mass_unit);
     if (!units) return;

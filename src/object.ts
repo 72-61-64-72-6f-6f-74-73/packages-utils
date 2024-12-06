@@ -1,3 +1,3 @@
-export const obj_en = <KeyType extends string, ValType>(object: Record<string, ValType>, parse_function: (key: string) => KeyType): [KeyType, ValType][] => {
+export const obj_en = <KeyType extends string, ValType>(object: Record<string, ValType>, parse_function: (key: string) => KeyType = (i) => i as KeyType): [KeyType, ValType][] => {
     return Object.entries(object).map<[KeyType, ValType]>(([k, v]) => [parse_function(k), v])
 };

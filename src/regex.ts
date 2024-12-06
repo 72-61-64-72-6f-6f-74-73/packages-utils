@@ -19,6 +19,7 @@ export const regex = {
     profile_name: /^[a-zA-Z0-9._]{3,30}$/,
     profile_name_ch: /[a-zA-Z0-9._]/,
     trade_product_key: /^(?:[a-zA-Z0-9]+(?:\s+[a-zA-Z0-9]+){0,2})$/,
+    trade_product_category: /^(?:[a-zA-Z0-9]+(?:\s+[a-zA-Z0-9]+){0,2})$/,
     currency_symbol: /(?:[A-Za-z]{3,5}\$|\p{Sc})/u,
     currency_marker: /(?:[A-Za-z]{2,4}[^\d\s]+|[^\d\s]{1,3}[A-Za-z]{2,4})/
     ///(?:[A-Za-z]{2,4}\$|\$(?=[A-Za-z]{2,4}$))/

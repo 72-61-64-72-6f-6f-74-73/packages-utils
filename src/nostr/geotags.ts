@@ -1,5 +1,5 @@
 import ngeotags, { type GeoTags, type InputData, type Options } from 'nostr-geotags';
-import { NostrTagLocation } from './types';
+import type { NostrTagLocation } from './types';
 
 const options: Options = {
     geohash: true,

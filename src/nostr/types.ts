@@ -14,7 +14,9 @@ export type NostrRelayInformationDocument = {
 export type NostrRelayInformationDocumentFormFields = { [K in keyof NostrRelayInformationDocument]: string; };
 
 export type NostrTagListing = {
+    key: string;
     title: string;
+    category: string;
     summary?: string;
     process?: string;
     lot?: string;
@@ -59,4 +61,17 @@ export type NostrTagClient = {
     name: string;
     pubkey: string;
     relay: string;
+};
+
+export type NostrMetadataTmp = {
+    name?: string;
+    display_name?: string;
+    about?: string;
+    website?: string;
+    picture?: string;
+    banner?: string;
+    nip05?: string;
+    lud06?: string;
+    lud16?: string;
+    bot?: boolean;
 };

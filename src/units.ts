@@ -11,7 +11,7 @@ export const mass_units: MassUnit[] = [`kg`, `lb`, `g`] as const;
 
 export type MassUnit = z.infer<typeof MassUnitSchema>;
 
-export function parse_mass_unit(val: string): MassUnit {
+export function parse_mass_unit(val?: string): MassUnit {
     switch (val) {
         case `kg`:
         case `lb`:

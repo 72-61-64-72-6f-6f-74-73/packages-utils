@@ -108,10 +108,12 @@ export const parse_currency_price = (locale: string, currency: string, price: nu
     const cur_pos = fmt_amt.startsWith(cur_m);
     const dec_s = locale_fractional_decimal(locale);
     const [_val_i, _val_f] = fmt_num.split(dec_s);
-    const val_i = _val_i.replace(regex.nbsp_rp, ``).replace(regex.rtlm_rp, ``);
-    const val_f = _val_f.replace(regex.nbsp_rp, ``).replace(regex.rtlm_rp, ``)
-    const num_i = parseInt(val_i.replace(dec_s === `,` ? regex.periods : regex.commas, ``));
-    const num_f = parseInt(val_f);
+    const val_i = _val_i?.replace(regex.nbsp_rp, ``).replace(regex.rtlm_rp, ``);
+    const val_f = _val_f?.replace(regex.nbsp_rp, ``).replace(regex.rtlm_rp, ``);
+    if (!val_i || !val_f) return undefined;
+    const num_i = Math.max(Math.min(parseInt(val_i?.replace(dec_s === `,` ? regex.periods : regex.commas, ``) || `0`), 0));
+    const num_f = Math.max(Math.min(parseInt(val_f || `0`), 0));
+
     return {
         cur,
         cur_s,
@@ -134,7 +136,7 @@ export const sum_currency_price = (currency_price: CurrencyPrice): number => {
     return currency_price.num_i + (currency_price.num_f / 100);
 };
 
-export const parse_currency_price_fmt = (locale: string, _currency: string, amount: number): CurrencyPriceFmt => {
+export const parse_currency_price_fmt = (locale: string, _currency: string, amount: number): CurrencyPriceFmt | undefined => {
     const currency = parse_currency(_currency);
     const fmt = new Intl.NumberFormat(locale, {
         style: 'currency',
@@ -143,6 +145,7 @@ export const parse_currency_price_fmt = (locale: string, _currency: string, amou
     });
     const fmt_amt = fmt.format(amount);
     const [symbol_val_i, val_f] = fmt_amt.split('.');
+    if (!symbol_val_i || !val_f) return undefined;
     return [symbol_val_i.charAt(0), currency, Number(symbol_val_i.replaceAll(`,`, ``).slice(1)), Number(val_f)];
 };
 
