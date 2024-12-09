@@ -63,7 +63,7 @@ export type NostrTagClient = {
     relay: string;
 };
 
-export type NostrMetadataTmp = {
+export type NostrKind0Metadata = {
     name?: string;
     display_name?: string;
     about?: string;

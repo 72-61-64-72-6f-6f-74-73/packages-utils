@@ -1,6 +1,6 @@
-import NDK, { NDKEvent, NDKPrivateKeySigner, NDKUser } from '@nostr-dev-kit/ndk';
+import NDK, { NDKEvent, NDKKind, NDKPrivateKeySigner, NDKUser } from '@nostr-dev-kit/ndk';
 import { time_now_ms } from '../time';
-import type { NostrMetadataTmp } from './types';
+import type { NostrKind0Metadata } from './types';
 
 export const ndk_init = async (opts: {
     $ndk: NDK;
@@ -24,7 +24,7 @@ export const ndk_init = async (opts: {
 export const ndk_event_metadata = async (opts: {
     $ndk: NDK;
     $ndk_user: NDKUser;
-    metadata: NostrMetadataTmp
+    metadata: NostrKind0Metadata
 }): Promise<NDKEvent | undefined> => {
     try {
         const { $ndk, $ndk_user } = opts;
@@ -32,7 +32,7 @@ export const ndk_event_metadata = async (opts: {
             $ndk,
             $ndk_user,
             basis: {
-                kind: 0,
+                kind: NDKKind.Metadata,
                 content: JSON.stringify(opts.metadata),
             },
         });
