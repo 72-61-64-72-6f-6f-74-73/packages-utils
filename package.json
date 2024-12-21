@@ -20,7 +20,7 @@
     "dependencies": {
         "@noble/curves": "^1.6.0",
         "@noble/hashes": "^1.4.0",
-        "@nostr-dev-kit/ndk": "^2.10.6",
+        "@nostr-dev-kit/ndk": "^2.10.7",
         "convert": "^5.5.1",
         "geohashing": "^2.0.1",
         "nostr-geotags": "^0.7.1",
