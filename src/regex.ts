@@ -1,4 +1,8 @@
 export const regex = {
+    float: /^[+-]?(\d+(\.\d*)?|\.\d+)$/,
+    float_ch: /^[0-9\.\+\-]$/,
+    float_pos: /^\d+(\.\d+)?$/,
+    float_pos_ch: /^[0-9\.]$/,
     description: /^(?:\S+(?:\s+\S+)*)$/,
     description_ch: /[^a-zA-Z0-9.,!?;:'"(){}[]\s\u0600-\u06FF\u0900-\u097F\u0400-\u04FF\u0500-\u052F\u1F00-\u1FFF\u4E00-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF ]+/,
     nbsp: /[\u00A0]/g,
@@ -11,9 +15,12 @@ export const regex = {
     alpha: /[a-zA-Z ]$/,
     alpha_ch: /[a-zA-Z ]$/,
     num: /^[0-9]+$/,
+    lat: /^[-+]?([1-8]?[0-9](\.\d{1,6})?|90(\.0{1,6})?)$/,
+    lat_ch: /^[\d\.\+\-]$/,
+    lng: /^[-+]?((1[0-7]?[0-9]|180)(\.\d{1,6})?|(\d{1,2})(\.\d{1,6})?)$/,
+    lng_ch: /^[\d\.\+\-]$/,
     alphanum: /[a-zA-Z0-9., ]$/,
     alphanum_ch: /[a-zA-Z0-9.,\s\u0600-\u06FF\u0900-\u097F\u0400-\u04FF\u0500-\u052F\u1F00-\u1FFF\u4E00-\u9FFF\uAC00-\uD7AF\u3040-\u309F\u30A0-\u30FF ]+/,
-    ///[a-zA-Z0-9., ]/,
     price: /^\d+(\.\d+)?$/,
     price_ch: /[0-9.]$/,
     profile_name: /^[a-zA-Z0-9._]{3,30}$/,
@@ -21,6 +28,6 @@ export const regex = {
     trade_product_key: /^(?:[a-zA-Z0-9]+(?:\s+[a-zA-Z0-9]+){0,2})$/,
     trade_product_category: /^(?:[a-zA-Z0-9]+(?:\s+[a-zA-Z0-9]+){0,2})$/,
     currency_symbol: /(?:[A-Za-z]{3,5}\$|\p{Sc})/u,
-    currency_marker: /(?:[A-Za-z]{2,4}[^\d\s]+|[^\d\s]{1,3}[A-Za-z]{2,4})/
-    ///(?:[A-Za-z]{2,4}\$|\$(?=[A-Za-z]{2,4}$))/
+    currency_marker: /(?:[A-Za-z]{2,4}[^\d\s]+|[^\d\s]{1,3}[A-Za-z]{2,4})/,
+    ws_proto: /^(wss:\/\/|ws:\/\/)/,
 };

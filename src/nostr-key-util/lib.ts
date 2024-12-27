@@ -1,7 +1,8 @@
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
 import { generateSecretKey, getPublicKey, nip19 } from 'nostr-tools';
+import type { INostrKeyUtil } from './types';
 
-export class ClientNostrLib2 {
+export class NostrKeyUtil implements INostrKeyUtil {
     private generate_key_bytes(): Uint8Array {
         const secret_key = generateSecretKey();
         return secret_key;
