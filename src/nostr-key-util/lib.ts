@@ -1,41 +1,25 @@
-import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
-import { generateSecretKey, getPublicKey, nip19 } from 'nostr-tools';
+import { getPublicKey, nip19 } from 'nostr-tools';
+import { lib_nostr_get_key_bytes, lib_nostr_key_generate, lib_nostr_nsec_decode, lib_nostr_nsec_encode } from '../nostr/key';
 import type { INostrKeyUtil } from './types';
 
 export class NostrKeyUtil implements INostrKeyUtil {
-    private generate_key_bytes(): Uint8Array {
-        const secret_key = generateSecretKey();
-        return secret_key;
-    };
-
-    private get_key_hex(bytes: Uint8Array): string {
-        const hex = bytesToHex(bytes);
-        return hex;
-    };
-
-    private get_key_bytes(hex: string): Uint8Array {
-        const bytes = hexToBytes(hex);
-        return bytes;
-    };
-
     /**
      * 
      * @returns nostr secret key hex
      */
     public generate_key(): string {
-        const bytes = this.generate_key_bytes();
-        const hex = this.get_key_hex(bytes);
-        return hex;
+        return lib_nostr_key_generate();
     };
+
 
     /**
      * 
-     * @returns nostr public key hex
+     * @returns nostr public key hex from secret key
      */
     public public_key(secret_key_hex: string | undefined): string {
         try {
             if (!secret_key_hex) return ``;
-            const bytes = this.get_key_bytes(secret_key_hex);
+            const bytes = lib_nostr_get_key_bytes(secret_key_hex);
             const hex = getPublicKey(bytes)
             return hex;
         } catch (e) {
@@ -50,7 +34,7 @@ export class NostrKeyUtil implements INostrKeyUtil {
     public publickey_decode(secret_key_hex?: string): string | undefined {
         try {
             if (secret_key_hex) {
-                return getPublicKey(this.get_key_bytes(secret_key_hex))
+                return getPublicKey(lib_nostr_get_key_bytes(secret_key_hex))
             }
             return undefined;
         } catch (e) {
@@ -83,11 +67,8 @@ export class NostrKeyUtil implements INostrKeyUtil {
      * 
      * @returns nostr secret key nsec
      */
-    public nsec(secret_key_hex: string | undefined): string {
-        if (!secret_key_hex) return ``;
-        const bytes = this.get_key_bytes(secret_key_hex);
-        const nsec = nip19.nsecEncode(bytes);
-        return nsec;
+    public nsec(secret_key_hex?: string): string | undefined {
+        return lib_nostr_nsec_encode(secret_key_hex);
     }
 
     /**
@@ -95,14 +76,7 @@ export class NostrKeyUtil implements INostrKeyUtil {
      * @returns nostr secret key hex from nsec
      */
     public nsec_decode(nsec: string): string | undefined {
-        try {
-            if (!nsec) return undefined;
-            const decode = nip19.decode(nsec);
-            if (decode && decode.type === `nsec` && decode.data) return bytesToHex(decode.data);
-            return undefined;
-        } catch (e) {
-            return undefined;
-        }
+        return lib_nostr_nsec_decode(nsec);
     }
 
     /**

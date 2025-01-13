@@ -6,6 +6,11 @@ export const handle_error = (e: unknown, append?: string): ErrorMessage<string> 
     return { err };
 };
 
+export const throw_err = (param: string | ErrorMessage<string>): undefined => {
+    if (typeof param === `string`) throw new Error(param);
+    else throw new Error(param.err);
+};
+
 export const err_msg = <T extends string>(err: T): ErrorMessage<T> => {
     return { err };
 };

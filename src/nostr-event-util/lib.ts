@@ -1,10 +1,9 @@
-import { schnorr } from '@noble/curves/secp256k1';
-import { hexToBytes } from "@noble/hashes/utils";
 import { type NDKEvent } from "@nostr-dev-kit/ndk";
 import ngeotags, { type GeoTags as NostrGeotagsGeotags, type InputData as NostrGeotagsInputData } from "nostr-geotags";
-import { finalizeEvent, getEventHash, nip19, type NostrEvent as NostrToolsEvent } from "nostr-tools";
-import { uuidv4 } from "..";
-import type { INostrEventUtil, INostrEventUtilEventSign, INostrEventUtilFormatTagsBasisNip99, INostrEventUtilNeventEncode, NostrEventTagClient, NostrEventTagLocation, NostrEventTagMediaUpload, NostrEventTagPrice, NostrEventTagQuantity } from "./types";
+import { type NostrEvent as NostrToolsEvent } from "nostr-tools";
+import type { INostrEventEventSign } from "..";
+import { lib_nostr_event_sign, lib_nostr_event_sign_attest, lib_nostr_event_verify, lib_nostr_event_verify_serialized, lib_nostr_nevent_encode } from '../nostr/event';
+import type { INostrEventUtil, INostrEventUtilFormatTagsBasisNip99, INostrEventUtilNeventEncode, NostrEventTagClient, NostrEventTagLocation, NostrEventTagMediaUpload, NostrEventTagPrice, NostrEventTagQuantity } from "./types";
 
 export class NostrEventUtil implements INostrEventUtil {
     public first_tag_value = (event: NDKEvent, tag_name: string): string => {
@@ -76,38 +75,24 @@ export class NostrEventUtil implements INostrEventUtil {
         return tags;
     };
 
-    public nostr_event_sign = (opts: INostrEventUtilEventSign): NostrToolsEvent => {
-        return finalizeEvent(opts.event, hexToBytes(opts.secret_key))
+    public nostr_event_sign = (opts: INostrEventEventSign): NostrToolsEvent => {
+        return lib_nostr_event_sign(opts);
     };
 
     public nostr_event_sign_attest = (secret_key: string): NostrToolsEvent => {
-        return this.nostr_event_sign({
-            secret_key,
-            event: {
-                kind: 1,
-                created_at: Math.floor(Date.now() / 1000),
-                tags: [],
-                content: uuidv4(),
-            },
-        });
+        return lib_nostr_event_sign_attest(secret_key);
     };
 
     public nostr_event_verify = (event: NostrToolsEvent): boolean => {
-        const hash = getEventHash(event);
-        if (hash !== event.id) return false
-        const valid = schnorr.verify(event.sig, hash, event.pubkey);
-        return valid;
+        return lib_nostr_event_verify(event);
     };
 
     public nostr_event_verify_serialized = (event_serialized: string): boolean => {
-        const event = JSON.parse(event_serialized);
-        const hash = getEventHash(event);
-        if (hash !== event.id) return false
-        const valid = schnorr.verify(event.sig, hash, event.pubkey);
-        return valid;
+        const result = lib_nostr_event_verify_serialized(event_serialized);
+        return !!result;
     };
 
     public nevent_encode = (opts: INostrEventUtilNeventEncode): string => {
-        return nip19.neventEncode(opts);
+        return lib_nostr_nevent_encode(opts);
     };
 }
