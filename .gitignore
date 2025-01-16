@@ -31,6 +31,7 @@ yarn-error.log*
 .dev*
 .vscode
 notes*.txt
+notes*.md
 justfile
 dist
 git-diff.txt
