@@ -18,20 +18,30 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
 # turbo
 .turbo
 
+
+# Output
+.output
+/build
+dist
+
+# local env files
+.env*
+!.env.example
+
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# local
 .tmp*
+.backup*
 .dev*
 .vscode
 notes*.txt
 notes*.md
-justfile
-dist
 git-diff.txt
+justfile

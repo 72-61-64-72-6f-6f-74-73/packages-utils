@@ -1,6 +1,5 @@
+import { time_now_ms, type NostrMetadataTmp } from '$root';
 import NDK, { NDKEvent, NDKPrivateKeySigner, NDKUser } from '@nostr-dev-kit/ndk';
-import { time_now_ms } from '..';
-import type { NostrMetadataTmp } from './types';
 
 export const ndk_init = async (opts: {
     $ndk: NDK;

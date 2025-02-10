@@ -1,6 +1,5 @@
+import { lib_nostr_get_key_bytes, lib_nostr_key_generate, lib_nostr_nsec_decode, lib_nostr_nsec_encode, type INostrKeyUtil } from '$root';
 import { getPublicKey, nip19 } from 'nostr-tools';
-import { lib_nostr_get_key_bytes, lib_nostr_key_generate, lib_nostr_nsec_decode, lib_nostr_nsec_encode } from '../nostr/key';
-import type { INostrKeyUtil } from './types';
 
 export class NostrKeyUtil implements INostrKeyUtil {
     /**

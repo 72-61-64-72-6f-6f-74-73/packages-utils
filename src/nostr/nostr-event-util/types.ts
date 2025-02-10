@@ -1,6 +1,6 @@
+import type { INostrEventEventSign } from "$root";
 import { NDKEvent } from "@nostr-dev-kit/ndk";
 import { type NostrEvent as NostrToolsEvent } from "nostr-tools";
-import type { INostrEventEventSign } from "..";
 
 export type INostrEventUtilFormatTagsBasisNip99 = {
     d_tag: string;

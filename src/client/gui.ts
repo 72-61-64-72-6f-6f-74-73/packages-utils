@@ -1,12 +1,10 @@
-import { type ResultsList } from "..";
-
 export type IClientGuiDialogKind = "info" | "warning" | "error";
 
 export type IClientGuiDialogAlertOpts = string;
 
 export type IClientGuiDialogConfirmOpts = string | { title?: string, kind?: IClientGuiDialogKind; message: string; cancel?: string; ok?: string; };
 
-export type IClientGuiDialogResolve = ResultsList<string>;
+export type IClientGuiDialogResolve = { results: string[]; };
 
 export type IClientGuiNotifyPermission = "default" | "denied" | "granted";
 export type IClientGuiNotifySendOptions = {

@@ -1,7 +1,7 @@
+import { uuidv4, type INostrEventEventSign, type INostrEventUtilNeventEncode } from "$root";
 import { schnorr } from "@noble/curves/secp256k1";
 import { hexToBytes } from "@noble/hashes/utils";
 import { finalizeEvent, getEventHash, nip19, type NostrEvent as NostrToolsEvent } from "nostr-tools";
-import { type INostrEventEventSign, type INostrEventUtilNeventEncode, uuidv4 } from "..";
 
 export const lib_nostr_event_verify = (event: NostrToolsEvent): boolean => {
     const hash = getEventHash(event);

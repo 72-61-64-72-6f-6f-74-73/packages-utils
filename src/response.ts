@@ -1,4 +1,4 @@
-import { type NotifyMessage } from ".";
+import type { NotifyMessage } from "$root";
 
 export const is_err_response = (response: any): response is { err: string } => {
     return "err" in response && typeof response.err === "string";

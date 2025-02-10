@@ -1,9 +1,7 @@
+import { lib_nostr_event_sign, lib_nostr_event_sign_attest, lib_nostr_event_verify, lib_nostr_event_verify_serialized, lib_nostr_nevent_encode, type INostrEventEventSign, type INostrEventUtil, type INostrEventUtilFormatTagsBasisNip99, type INostrEventUtilNeventEncode, type NostrEventTagClient, type NostrEventTagLocation, type NostrEventTagMediaUpload, type NostrEventTagPrice, type NostrEventTagQuantity } from "$root";
 import { type NDKEvent } from "@nostr-dev-kit/ndk";
 import ngeotags, { type GeoTags as NostrGeotagsGeotags, type InputData as NostrGeotagsInputData } from "nostr-geotags";
 import { type NostrEvent as NostrToolsEvent } from "nostr-tools";
-import type { INostrEventEventSign } from "..";
-import { lib_nostr_event_sign, lib_nostr_event_sign_attest, lib_nostr_event_verify, lib_nostr_event_verify_serialized, lib_nostr_nevent_encode } from '../nostr/event';
-import type { INostrEventUtil, INostrEventUtilFormatTagsBasisNip99, INostrEventUtilNeventEncode, NostrEventTagClient, NostrEventTagLocation, NostrEventTagMediaUpload, NostrEventTagPrice, NostrEventTagQuantity } from "./types";
 
 export class NostrEventUtil implements INostrEventUtil {
     public first_tag_value = (event: NDKEvent, tag_name: string): string => {

@@ -6,17 +6,23 @@
             "es2021",
             "dom"
         ],
-        "module": "CommonJS",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "declaration": true,
+        "declarationMap": true,
         "outDir": "./dist",
-        "rootDir": "./src",
-        "noEmit": true,
         "esModuleInterop": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "$root": ["src/index.js"]
+        }
     },
     "include": [
         "src"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ],
 }

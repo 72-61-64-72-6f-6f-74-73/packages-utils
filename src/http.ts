@@ -1,4 +1,8 @@
-import { type FieldRecord, is_error_response, is_message_response, type NotifyMessage } from ".";
+import { is_error_response, is_message_response, type ErrorMessage, type FieldRecord, type NotifyMessage } from "$root";
+
+export type IClientHttp = {
+    fetch(opts: IHttpOpts): Promise<IHttpResponse | ErrorMessage<string>>;
+};
 
 export type IHttpImageResponse = {
     status: number;
@@ -85,20 +89,21 @@ export const http_parse_response = async (res: Response): Promise<Promise<IHttpR
 export const http_fetch = async (opts: IHttpOpts): Promise<IHttpResponse> => {
     const { url, options } = http_fetch_opts(opts);
     const response = await fetch(url, options);
-    let response_data: any = null;
+    let data: any = null;
     try {
         const res_json = await response.json();
-        response_data = typeof res_json === `string` ? JSON.parse(res_json) : res_json;
+        data = typeof res_json === `string` ? JSON.parse(res_json) : res_json;
     } catch { }
-    if (!response_data) {
+    if (!data) {
         try {
             const res_text = await response.text();
-            response_data = res_text;
+            data = res_text;
         } catch { }
     }
     return {
         status: response.status,
         url: response.url,
+        data,
         headers: lib_http_parse_headers(response.headers)
     };
 };

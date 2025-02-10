@@ -1,4 +1,4 @@
-import { type MassUnit, parse_mass_unit } from "./units";
+import { parse_int, parse_mass_unit, type MassUnit } from "$root";
 
 export type TradeKey = `coffee` | `cacao` | `maca`;
 
@@ -14,14 +14,14 @@ export const fmt_trade_quantity_tup = (obj: TradeQuantity): string => `${obj.mas
 
 export const parse_trade_quantity_tup = (sel_key: string): TradeQuantity | undefined => {
     const [qty_mass, qty_mass_u, qty_label] = sel_key.split(`-`);
-    if (!qty_mass || !qty_mass_u || !qty_label) return undefined;
+    const mass_unit = parse_mass_unit(qty_mass_u);
+    if (!qty_mass || !qty_mass_u || !qty_label || !mass_unit) return undefined;
     return {
-        mass: parseInt(qty_mass),
-        mass_unit: parse_mass_unit(qty_mass_u), //@todo
+        mass: parse_int(qty_mass, 1),
+        mass_unit,
         label: qty_label
     }
 };
-
 
 export const trade_keys: TradeKey[] = [`coffee`, `cacao`, `maca`] as const;
 
@@ -43,9 +43,16 @@ const trade_quantity_default: TradeQuantity[] = [
     },
 ];
 
+const trade_process_default: string[] = [
+    `natural`,
+    `dried`,
+    `roasted`
+];
+
 export type TradeParam = {
     default: {
         quantity: TradeQuantity[];
+        process: string[];
     },
     key: Record<TradeKey, {
         quantity: TradeQuantity[];
@@ -56,6 +63,7 @@ export type TradeParam = {
 export const trade: TradeParam = {
     default: {
         quantity: trade_quantity_default,
+        process: trade_process_default,
     },
     key: {
         coffee: {
