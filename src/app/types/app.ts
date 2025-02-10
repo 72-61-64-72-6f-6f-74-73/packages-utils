@@ -67,10 +67,7 @@ export interface SvelteTransitionConfig {
 
 export type LcGuiAlertCallback = CallbackPromiseFull<string, boolean>;
 export type LcGuiConfirmCallback = CallbackPromiseFull<string | { message: string; ok?: string; cancel?: string }, boolean>;
-
-//export type LcGeocodeCurrentCallback = CallbackPromiseFull<boolean | string, IClientGeolocationPosition | undefined>;
 export type LcGeocodeCurrentCallback = CallbackPromiseResult<IClientGeolocationPosition>;
-
 export type LcGeocodeCallback = CallbackPromiseFull<GeolocationPoint, GeocoderReverseResult | undefined>;
 export type LcPhotoAddCallback = CallbackPromiseResult<string>;
 export type LcPhotoAddMultipleCallback = CallbackPromiseResult<string[]>;

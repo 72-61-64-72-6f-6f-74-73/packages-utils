@@ -59,8 +59,6 @@ export type ITextArea = IIdOpt & IClOpt & ILyOpt & {
     callback_mount?: ElementCallbackMount<HTMLTextAreaElement>;
 };
 
-//export type IBasisOpt<T extends object> = T | undefined;
-
 export type INavigationRoute<T extends string> = {
     route: T | [T, NavigationParamTuple[]];
 };
