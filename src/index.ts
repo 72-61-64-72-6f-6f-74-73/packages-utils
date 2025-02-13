@@ -1,6 +1,7 @@
 export * from "./*regex.js"
 export * from "./*validation.js"
 export * from "./app/document.js"
+export * from "./app/i18n-icu.js"
 export * from "./app/i18n.js"
 export * from "./app/lib.js"
 export * from "./app/styles.js"

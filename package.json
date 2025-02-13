@@ -38,6 +38,7 @@
         "geohashing": "^2.0.1",
         "nostr-geotags": "^0.7.1",
         "nostr-tools": "^2.10.4",
+        "sveltekit-i18n": "^2.4.2",
         "uuid": "^10.0.0",
         "zod": "^3.23.8"
     }

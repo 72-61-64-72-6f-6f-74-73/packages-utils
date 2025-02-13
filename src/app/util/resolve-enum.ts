@@ -1,3 +1,20 @@
+export type ResolveEnumAccountRoleKey = `Admin` | `Guest` | `Internal` | `Member`;
+
+export const parse_enum_account_role_key = (val: string): ResolveEnumAccountRoleKey | undefined => {
+    switch (val) {
+        case `admin`:
+            return `Admin`;
+        case `guest`:
+            return `Guest`;
+        case `internal`:
+            return `Internal`;
+        case `member`:
+            return `Member`;
+        default:
+            return undefined;
+    }
+};
+
 export type ResolveEnumAreaUnitKey = `Ac` | `Ft2` | `Ha` | `M2`;
 
 export const parse_enum_area_unit_key = (val: string): ResolveEnumAreaUnitKey | undefined => {
@@ -10,6 +27,19 @@ export const parse_enum_area_unit_key = (val: string): ResolveEnumAreaUnitKey | 
             return `Ha`;
         case `m2`:
             return `M2`;
+        default:
+            return undefined;
+    }
+};
+
+export type ResolveEnumAuthCredentialKey = `Email` | `Phone`;
+
+export const parse_enum_auth_credential_key = (val: string): ResolveEnumAuthCredentialKey | undefined => {
+    switch (val) {
+        case `email`:
+            return `Email`;
+        case `phone`:
+            return `Phone`;
         default:
             return undefined;
     }
@@ -58,19 +88,6 @@ export const parse_enum_budget_spending_type_key = (val: string): ResolveEnumBud
             return `Supplies`;
         case `utilities`:
             return `Utilities`;
-        default:
-            return undefined;
-    }
-};
-
-export type ResolveEnumCredentialKey = `Email` | `Phone`;
-
-export const parse_enum_credential_key = (val: string): ResolveEnumCredentialKey | undefined => {
-    switch (val) {
-        case `email`:
-            return `Email`;
-        case `phone`:
-            return `Phone`;
         default:
             return undefined;
     }
@@ -129,23 +146,6 @@ export const parse_enum_quantity_unit_key = (val: string): ResolveEnumQuantityUn
             return `Lb`;
         case `ton`:
             return `Ton`;
-        default:
-            return undefined;
-    }
-};
-
-export type ResolveEnumRoleKey = `Admin` | `Guest` | `Internal` | `Member`;
-
-export const parse_enum_role_key = (val: string): ResolveEnumRoleKey | undefined => {
-    switch (val) {
-        case `admin`:
-            return `Admin`;
-        case `guest`:
-            return `Guest`;
-        case `internal`:
-            return `Internal`;
-        case `member`:
-            return `Member`;
         default:
             return undefined;
     }

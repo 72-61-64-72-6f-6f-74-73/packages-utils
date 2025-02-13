@@ -47,3 +47,7 @@ export const zod_numf_price = z.number().positive().multipleOf(0.01);
 export const zod_numi_pos = z.number().int().positive();
 
 export const zod_numf_pos = z.number().positive();
+
+export const vf_email = z.string().email();
+
+export const vf_username = z.string().regex(util_rxp.profile_name);
