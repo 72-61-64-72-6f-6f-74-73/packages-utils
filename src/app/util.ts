@@ -1,4 +1,4 @@
-import type { AppLayoutKey, AppLayoutKeyIOS, AppLayoutKeyWeb, LabelFieldKind, NavigationParamTuple, ThemeLayer } from "$root";
+import type { AppLayoutKey, AppLayoutKeyIOS, AppLayoutKeyWeb, AppLayoutKeyWebPwa, LabelFieldKind, NavigationParamTuple, ThemeLayer } from "$root";
 
 export const fmt_cl = (classes?: string): string => {
     return classes ? classes : ``;
@@ -10,6 +10,8 @@ export const get_layout = (val: string | false): AppLayoutKey => {
         case `ios1`:
         case `webm0`:
         case `webm1`:
+        case `web_mobile`:
+        case `web_desktop`:
             return val;
         default:
             return `ios0`;
@@ -27,6 +29,17 @@ export const get_ios_layout = (val: string | false): AppLayoutKeyIOS => {
 };
 
 export const get_web_layout = (val: string | false): AppLayoutKeyWeb => {
+    switch (val) {
+        case `web_mobile`:
+        case `web_desktop`:
+            return val;
+        default:
+            return `web_desktop`;
+    };
+};
+
+
+export const get_web_pwa_layout = (val: string | false): AppLayoutKeyWebPwa => {
     switch (val) {
         case `webm0`:
         case `webm1`:
